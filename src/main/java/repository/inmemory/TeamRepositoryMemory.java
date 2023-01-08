@@ -24,10 +24,6 @@ public class TeamRepositoryMemory implements TeamRepository {
     }
 
 
-    public ArrayList<Team> getAllTeams() {
-        return allTeams;
-    }
-
     @Override
     public void add(Team entity) {
         this.allTeams.add(entity);

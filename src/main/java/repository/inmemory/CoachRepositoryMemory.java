@@ -24,9 +24,6 @@ public class CoachRepositoryMemory implements CoachRepository {
     }
 
 
-    public ArrayList<Coach> getAllCoaches() {
-        return allCoaches;
-    }
 
     @Override
     public void add(Coach entity) {
@@ -64,19 +61,8 @@ public class CoachRepositoryMemory implements CoachRepository {
         return null;
     }
 
-    public boolean existsCoach(String firstName, String secondName) {
-        for (Coach coach : this.allCoaches)
-            if (coach.getFirstName().equals(firstName) && coach.getLastName().equals(secondName))
-                return true;
-        return false;
-    }
 
-    public boolean existsCoachForAdmin(String id, String firstName) {
-        for (Coach coach : this.allCoaches)
-            if (coach.getId().equals(id) && coach.getFirstName().equals(firstName))
-                return true;
-        return false;
-    }
+
 
 
 

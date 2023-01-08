@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class PlayerRepositoryJDBC implements PlayerRepository {
 
-    private  ArrayList<Player> allPlayers = new ArrayList<>();
+    private final ArrayList<Player> allPlayers = new ArrayList<>();
 
 
 
@@ -28,9 +28,7 @@ public class PlayerRepositoryJDBC implements PlayerRepository {
             single_instance= new PlayerRepositoryJDBC();
             String connectionURL = "jdbc:sqlserver://localhost:52448;databaseName=MAP;user=user1;password=1234;encrypt=true;trustServerCertificate=true";
             try {
-                System.out.print("Connecting to the server......");
                 try (Connection connection = DriverManager.getConnection(connectionURL)) {
-                    System.out.println("Connected to the Server.");
 
                     Statement select = connection.createStatement();
                     ResultSet resultSet = select.executeQuery("SELECT * FROM PlayerMAP");
@@ -75,11 +73,6 @@ public class PlayerRepositoryJDBC implements PlayerRepository {
         }
         return single_instance;
     }
-
-    /**
-     * when we first initialize our playerRepoJDBC, we have to look if there are already some given datas in our database
-     * if yes, then we get them into our list that we currently work with, if not, we populate the list and the databse with some player Objects
-     */
 
     /**
      * we add a player in our list that we work with, and also in our database

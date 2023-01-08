@@ -2,7 +2,6 @@ package controller;
 
 import model.Sponsor;
 import model.Team;
-import repository.inmemory.TeamRepositoryMemory;
 import repository.jdbc.TeamRepositoryJDBC;
 
 import java.util.ArrayList;
@@ -22,6 +21,7 @@ public class TeamController {
      */
     public void printAllTeams() {
         for (Team team : teamRepositoryJDBC.getAllTeams())
+            if(!(team.getName().equals("Free")))
             team.printTeam();
     }
 
@@ -70,18 +70,31 @@ public class TeamController {
             return null;
     }
 
+    /**
+     *
+     * @returns a list of teams sorted by name
+     */
     public List<Team> sortAllTeamsByName() {
         List<Team> allTeams = teamRepositoryJDBC.getAllTeams();
         allTeams.sort(Comparator.comparing(Team::getName));
         return allTeams;
     }
 
+    /**
+     *
+     * @return a list of teams sorted by value
+     */
     public List<Team> sortAllTeamsByValue() {
         List<Team> allTeams = teamRepositoryJDBC.getAllTeams();
         allTeams.sort(Comparator.comparing(Team::getSquadValue));
         return allTeams;
     }
 
+    /**
+     *
+     * @param country a specific country, that we search teams from
+     * @return a list of teams from that specific country
+     */
     public List<Team> sortAllTeamsByCountry(String country) {
         List<Team> allTeamsFromACountry = new ArrayList<>();
         for (Team team : teamRepositoryJDBC.getAllTeams())

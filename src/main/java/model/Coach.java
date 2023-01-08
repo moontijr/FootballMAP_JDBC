@@ -29,7 +29,7 @@ public class Coach extends Person{
     }
 
     public void printCoach() {
-        System.out.println("First Name : " + this.getFirstName() + " | " + " Last Name : " + this.getLastName() + " | " + " Age : " + this.getAge() + " Year Old " + " | " + " Nationality : " + this.getNationality() + " | " + "Play Style : " + this.getPlayStyle() + " Currently Training the Team :" + this.getTeam().getName());
+        System.out.println("First Name : " + this.getFirstName() + " | " + " Last Name : " + this.getLastName() + " | " + " Age : " + this.getAge() + " Year Old " + " | " + " Nationality : " + this.getNationality() + " | " + "Play Style : " + this.getPlayStyle() + "|" + " Currently Training the Team :" + this.getTeam().getName());
     }
 
 }

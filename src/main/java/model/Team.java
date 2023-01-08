@@ -23,9 +23,6 @@ public class Team {
         return squadValue;
     }
 
-    public void setSquadValue(int squadValue) {
-        this.squadValue = squadValue;
-    }
 
     public List<Player> squad;
 
@@ -89,13 +86,7 @@ public class Team {
         return squad;
     }
 
-    public List<Sponsor> getSponsors() {
-        return sponsors;
-    }
 
-    public void setSponsors(List<Sponsor> sponsors) {
-        this.sponsors = sponsors;
-    }
 
     public List<Sponsor> sponsors;
 
@@ -113,6 +104,10 @@ public class Team {
         this.squadValue = 0;
     }
 
+    public void setSquadValue(int squadValue) {
+        this.squadValue = squadValue;
+    }
+
     /**
      * adds a player to a team
      *
@@ -126,6 +121,7 @@ public class Team {
             return false;
         else {
             this.squad.add(player);
+            this.setSquadValue(squadValue+ player.getMarketValue());
             player.setStatus("Playing at " + this.name);
             Connection connection1= DriverManager.getConnection("jdbc:sqlserver://localhost:52448;databaseName=MAP;user=user1;password=1234;encrypt=true;trustServerCertificate=true");
             String sql= "UPDATE PlayerMAP SET status=? WHERE id=? AND firstName=?";
@@ -184,8 +180,6 @@ public class Team {
      * @return true if the transfer can be made, false if not
      */
     public boolean transferPlayerToTeam(Player player, Team otherTeam) throws SQLException {
-        for (Player player1 : otherTeam.squad)
-            System.out.println(player1.getFirstName());
         if (this.squad.contains(player)) {
             return false;
         }
@@ -244,6 +238,7 @@ public class Team {
             player.setStatus("Free Agent");
         for (Sponsor sponsor : this.sponsors)
             sponsor.stopSponsorTeam(this);
+
     }
 
     /**

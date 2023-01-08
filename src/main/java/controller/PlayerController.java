@@ -2,8 +2,6 @@ package controller;
 
 import model.Player;
 import model.Team;
-import repository.inmemory.PlayerRepositoryMemory;
-import repository.inmemory.TeamRepositoryMemory;
 import repository.jdbc.PlayerRepositoryJDBC;
 import repository.jdbc.TeamRepositoryJDBC;
 
@@ -12,16 +10,31 @@ import java.util.Comparator;
 import java.util.List;
 
 public class PlayerController {
-    // private final PlayerRepositoryMemory playerRepositoryMemory;
 
     private final PlayerRepositoryJDBC playerRepositoryJDBC;
-    //private final TeamRepositoryMemory teamRepositoryMemory;
 
     private final TeamRepositoryJDBC teamRepositoryJDBC;
 
     public PlayerController(PlayerRepositoryJDBC playerRepositoryJDBC, TeamRepositoryJDBC teamRepositoryJDBC) {
         this.playerRepositoryJDBC=playerRepositoryJDBC;
         this.teamRepositoryJDBC=teamRepositoryJDBC;
+    }
+
+    /**
+     * gives a list of players that have a higher market value than the given player
+     * @param player is a specific player
+     * @return a list of players, or NULL, if there are no good examples
+     */
+    public List <Player> allHigherPlayers(Player player)
+    {
+        List <Player> players= new ArrayList<>();
+        for(Player player1 : playerRepositoryJDBC.getAllPlayers())
+            if(player1.getMarketValue()>player.getMarketValue())
+                players.add(player1);
+        if(players.size()>0)
+            return players;
+        else
+            return null;
     }
 
     /**
@@ -139,7 +152,7 @@ public class PlayerController {
      */
     public List<Player> sortAllPlayersByName() {
         List<Player> allPlayers = playerRepositoryJDBC.getAllPlayers();
-        allPlayers.sort(Comparator.comparing(Player::getLastName));
+        allPlayers.sort(Comparator.comparing(Player::getFirstName));
         return allPlayers;
     }
 

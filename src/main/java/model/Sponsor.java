@@ -30,9 +30,6 @@ public class Sponsor {
         return sponsoredTeams;
     }
 
-    public void setSponsoredTeams(List<Team> sponsoredTeams) {
-        this.sponsoredTeams = sponsoredTeams;
-    }
 
     public Sponsor(String name, String abbreviation, int netWorth) {
         this.name = name;
@@ -59,8 +56,11 @@ public class Sponsor {
     }
 
     public void disbandSponsor() {
-        for (Team team : this.sponsoredTeams)
+        for (Team team : this.sponsoredTeams) {
             stopSponsorTeam(team);
+            if(this.sponsoredTeams.size()==0)
+                break;
+        }
     }
 
     public void printSponsor() {

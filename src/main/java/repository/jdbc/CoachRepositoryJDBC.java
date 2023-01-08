@@ -17,15 +17,13 @@ public class CoachRepositoryJDBC implements CoachRepository {
 
     private final ArrayList<Coach> allCoaches = new ArrayList<>();
 
-    public static CoachRepositoryJDBC getInstance()
+    public static CoachRepositoryJDBC getInstance(TeamRepositoryJDBC teamRepositoryJDBC)
     {
         if(single_instance == null) {
             single_instance = new CoachRepositoryJDBC();
             String connectionURL = "jdbc:sqlserver://localhost:52448;databaseName=MAP;user=user1;password=1234;encrypt=true;trustServerCertificate=true";
             try {
-                System.out.print("Connecting to the server......");
                 try (Connection connection = DriverManager.getConnection(connectionURL)) {
-                    System.out.println("Connected to the Server.");
 
                     Statement select = connection.createStatement();
                     ResultSet resultSet = select.executeQuery("SELECT * FROM CoachMAP");
@@ -37,11 +35,11 @@ public class CoachRepositoryJDBC implements CoachRepository {
                         ResultSet result = select.executeQuery(" SELECT * FROM CoachMAP");
                         while (result.next()) {
                             String abbreviationTeam = result.getString("currentTeam");
-                            for (Team team : TeamRepositoryJDBC.getInstance().getAllTeams()) {
+                            for (Team team : teamRepositoryJDBC.getAllTeams()) {
                                 if (team.getAbbreviation().equals(abbreviationTeam)) {
                                     Team team1 = new Team(team.getName(), team.getAbbreviation(), team.getCountry(), team.getTown(), team.getFoundationYear(), team.getMaxSquadSize(), team.getBudget());
                                     Coach coach = new Coach(result.getString("id"), result.getString("firstName"), result.getString("lastName"), result.getInt("age"), result.getString("nationality"), result.getString("playStyle"), team1);
-                                    CoachRepositoryJDBC.getInstance().getAllCoaches().add(coach);
+                                    CoachRepositoryJDBC.getInstance(teamRepositoryJDBC).getAllCoaches().add(coach);
                                 }
                             }
 
@@ -51,7 +49,7 @@ public class CoachRepositoryJDBC implements CoachRepository {
                         Statement insert = connection.createStatement();
                         insert.executeUpdate(insert_string);
                         Coach coach = new Coach("MS01", "Marius", "Sumudica", 58, "Romania", "Defensive", TeamRepositoryJDBC.getInstance().getTeamByAbbreviation("U"));
-                        CoachRepositoryJDBC.getInstance().getAllCoaches().add(coach);
+                        CoachRepositoryJDBC.getInstance(teamRepositoryJDBC).getAllCoaches().add(coach);
                     }
                     //System.out.println(allPlayers.size());
 

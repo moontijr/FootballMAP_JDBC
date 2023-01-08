@@ -23,10 +23,6 @@ public class SponsorRepositoryMemory implements SponsorRepository {
         SponsorRepositoryMemory.getInstance().add(new Sponsor("NTTData", "NTT", 200000000));
     }
 
-    public ArrayList<Sponsor> getAllSponsors() {
-        return allSponsors;
-    }
-
 
     @Override
     public void add(Sponsor entity) {
@@ -53,11 +49,5 @@ public class SponsorRepositoryMemory implements SponsorRepository {
         return null;
     }
 
-    public boolean existsSponsor(String name, String abbreviation) {
-        for (Sponsor sponsor : this.allSponsors)
-            if (sponsor.getName().equals(name) && sponsor.getAbbreviation().equals(abbreviation))
-                return true;
-        return false;
-    }
 
 }

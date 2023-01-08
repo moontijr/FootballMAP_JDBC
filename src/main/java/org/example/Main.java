@@ -4,7 +4,6 @@ import controller.CoachController;
 import controller.PlayerController;
 import controller.SponsorController;
 import controller.TeamController;
-import model.Team;
 import repository.jdbc.CoachRepositoryJDBC;
 import repository.jdbc.PlayerRepositoryJDBC;
 import repository.jdbc.SponsorRepositoryJDBC;
@@ -23,17 +22,9 @@ public class Main {
             try (Connection connection = DriverManager.getConnection(connectionURL)) {
                 System.out.println("Connected to the Server.");
                 TeamRepositoryJDBC teamRepositoryJDBC= TeamRepositoryJDBC.getInstance();
-                PlayerRepositoryJDBC playerRepositoryJDBC = PlayerRepositoryJDBC.getInstance();
                 SponsorRepositoryJDBC sponsorRepositoryJDBC= SponsorRepositoryJDBC.getInstance();
-                CoachRepositoryJDBC coachRepositoryJDBC=CoachRepositoryJDBC.getInstance();
-                for(Team team : teamRepositoryJDBC.getAllTeams())
-                {
-                    System.out.println(team.getSquad().size());
-                }
-//                        PlayerRepositoryMemory playerRepositoryMemory = PlayerRepositoryMemory.getInstance();
-//        CoachRepositoryMemory coachRepositoryMemory = CoachRepositoryMemory.getInstance();
-//        TeamRepositoryMemory teamRepositoryMemory = TeamRepositoryMemory.getInstance();
-//        SponsorRepositoryMemory sponsorRepositoryMemory = SponsorRepositoryMemory.getInstance();
+                PlayerRepositoryJDBC playerRepositoryJDBC = PlayerRepositoryJDBC.getInstance();
+                CoachRepositoryJDBC coachRepositoryJDBC=CoachRepositoryJDBC.getInstance(teamRepositoryJDBC);
         Scanner scanner = new Scanner(System.in);
         PlayerController playerController = new PlayerController(playerRepositoryJDBC, teamRepositoryJDBC);
         UI ui = new UI(scanner,playerRepositoryJDBC,sponsorRepositoryJDBC,teamRepositoryJDBC,coachRepositoryJDBC,playerController,new TeamController(teamRepositoryJDBC),new CoachController(coachRepositoryJDBC,playerRepositoryJDBC),new SponsorController(sponsorRepositoryJDBC,teamRepositoryJDBC)

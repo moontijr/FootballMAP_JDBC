@@ -4,14 +4,9 @@ import model.Player;
 import repository.PlayerRepository;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class PlayerRepositoryMemory implements PlayerRepository {
 
-
-    public List<Player> getAllPlayers() {
-        return allPlayers;
-    }
 
 
     private static PlayerRepositoryMemory single_instance = null;
@@ -72,16 +67,4 @@ public class PlayerRepositoryMemory implements PlayerRepository {
         return null;
     }
 
-    public boolean existsPlayer(String firstName, String secondName) {
-        for (Player player : this.allPlayers)
-            if (player.getFirstName().equals(firstName) && player.getLastName().equals(secondName))
-                return true;
-        return false;
-    }
-    public boolean existsPlayerForAdmin(String id, String firstName) {
-        for (Player player : this.allPlayers)
-            if (player.getId().equals(id) && player.getFirstName().equals(firstName) )
-                return true;
-        return false;
-    }
 }

@@ -23,9 +23,7 @@ public class TeamRepositoryJDBC implements TeamRepository {
             single_instance=new TeamRepositoryJDBC();
             String connectionURL = "jdbc:sqlserver://localhost:52448;databaseName=MAP;user=user1;password=1234;encrypt=true;trustServerCertificate=true";
             try {
-                System.out.print("Connecting to the server......");
                 try (Connection connection = DriverManager.getConnection(connectionURL)) {
-                    System.out.println("Connected to the Server.");
 
                     Statement select = connection.createStatement();
                     ResultSet resultSet = select.executeQuery("SELECT * FROM TeamMAP");
@@ -40,9 +38,9 @@ public class TeamRepositoryJDBC implements TeamRepository {
                                     (result.getString("name"),result.getString("abbreviation"),result.getString("country"),result.getString("town"),result.getInt("foundationYear"),result.getInt("maxSquadSize"),result.getInt("budget"));
                             int contor=0;
                             for(Team team1 :TeamRepositoryJDBC.getInstance().getAllTeams())
-                                if(team1.getAbbreviation().equals(team.getAbbreviation())&& team1.getName().equals(team.getName()))
-                                {
-                                    contor=1;
+                                if (team1.getAbbreviation().equals(team.getAbbreviation()) && team1.getName().equals(team.getName())) {
+                                    contor = 1;
+                                    break;
                                 }
                             if(contor==0)
                                 TeamRepositoryJDBC.getInstance().getAllTeams().add(team);
@@ -68,12 +66,6 @@ public class TeamRepositoryJDBC implements TeamRepository {
     }
 
     //public Connection connection;
-
-    /**
-     * constructor, when we first initialize the teamRepoJDBC, we either have values in our databse, and we put them into our list in javva
-     * or the database is empty, so we add some values by populating it, and also putting them in our lists
-     */
-
 
 
     /**
@@ -137,8 +129,14 @@ public class TeamRepositoryJDBC implements TeamRepository {
             statement1.setString(2,"Playing at " + name );
             statement1.executeUpdate();
             statement1.close();
-            connection1.close();
 
+            String sql2="UPDATE CoachMAP SET currentTeam=? WHERE currentTeam=?";
+            PreparedStatement statement2 = connection1.prepareStatement(sql2);
+            statement2.setString(1,"Free");
+            statement2.setString(2,abbreviation);
+            statement2.executeUpdate();
+            statement2.close();
+            connection1.close();
 
         }
     }

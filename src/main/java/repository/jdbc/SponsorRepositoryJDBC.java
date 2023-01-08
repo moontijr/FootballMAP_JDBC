@@ -20,9 +20,7 @@ public class SponsorRepositoryJDBC implements SponsorRepository {
             single_instance = new SponsorRepositoryJDBC();
             String connectionURL = "jdbc:sqlserver://localhost:52448;databaseName=MAP;user=user1;password=1234;encrypt=true;trustServerCertificate=true";
             try {
-                System.out.print("Connecting to the server......");
                 try (Connection connection = DriverManager.getConnection(connectionURL)) {
-                    System.out.println("Connected to the Server.");
 
                     Statement select = connection.createStatement();
                     ResultSet resultSet = select.executeQuery("SELECT * FROM SponsorMAP");
@@ -50,7 +48,6 @@ public class SponsorRepositoryJDBC implements SponsorRepository {
                             {
                                 Sponsor sponsor=SponsorRepositoryJDBC.getInstance().getSponsorByAbbreviation(result2.getString("idSponsor"));
                                 Team team = TeamRepositoryJDBC.getInstance().getTeamByAbbreviation((result2.getString("idTeam")));
-                                int ammountOfMoney=result2.getInt("ammountOfMoney");
                                 sponsor.sponsorTeam(team);
                             }
                         }
@@ -80,13 +77,6 @@ public class SponsorRepositoryJDBC implements SponsorRepository {
     public ArrayList<Sponsor> getAllSponsors() {
         return allSponsors;
     }
-
-
-    /**
-     * every time we initialize our SponsorRepoJDBC, we have 2 options, either we already have values in our database and we work
-     * with those in our list in java, or our database is empty, and we gotta populate with some values, and also add them
-     * in our java list
-     */
 
 
     /**

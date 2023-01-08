@@ -54,6 +54,9 @@ public class SponsorController {
         }
     }
 
+    /**
+     * prints all the sponsors from the repo
+     */
     public void printAllSponsors() {
         for (Sponsor sponsor : sponsorRepositoryJDBC.getAllSponsors())
             sponsor.printSponsor();
@@ -113,10 +116,11 @@ public class SponsorController {
     public boolean startSponsoring(Sponsor sponsor, String teamAbbreviation, int ammountOfMoney) throws SQLException {
         Team team1;
         int ok = 0;
-        for (Team team : sponsor.getSponsoredTeams()) {
-            if (team.getAbbreviation().equals(teamAbbreviation)) ;
-            {
+        List <Team> teams=sponsor.getSponsoredTeams();
+        for (Team team : teams) {
+            if (team.getAbbreviation().equals(teamAbbreviation)) {
                 ok = 1;
+                break;
             }
         }
         if (ok == 0) {
@@ -182,9 +186,11 @@ public class SponsorController {
             }
 
 
-
-
-
+    /**
+     * gets all the sponsors from a specific team
+     * @param team that we search for sponsors
+     * @return a list of sponsors from a specific team
+     */
     public List<Sponsor> allSponsorsFromATeam (Team team)
     {
         return new ArrayList<>(team.sponsors);

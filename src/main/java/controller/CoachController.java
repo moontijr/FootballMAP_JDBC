@@ -12,8 +12,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public class CoachController {
-//    private final CoachRepositoryMemory coachRepositoryMemory;
-//    private final PlayerRepositoryMemory playerRepositoryMemory;
+
 
     private final CoachRepositoryJDBC coachRepositoryJDBC;
     private final PlayerRepositoryJDBC playerRepositoryJDBC;
