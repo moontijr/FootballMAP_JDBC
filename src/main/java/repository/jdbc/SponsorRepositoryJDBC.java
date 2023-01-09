@@ -48,7 +48,8 @@ public class SponsorRepositoryJDBC implements SponsorRepository {
                             {
                                 Sponsor sponsor=SponsorRepositoryJDBC.getInstance().getSponsorByAbbreviation(result2.getString("idSponsor"));
                                 Team team = TeamRepositoryJDBC.getInstance().getTeamByAbbreviation((result2.getString("idTeam")));
-                                sponsor.sponsorTeam(team);
+                                if(sponsor!=null)
+                                    sponsor.sponsorTeam(team);
                             }
                         }
 

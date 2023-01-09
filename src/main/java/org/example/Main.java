@@ -19,7 +19,7 @@ public class Main {
         String connectionURL = "jdbc:sqlserver://localhost:52448;databaseName=MAP;user=user1;password=1234;encrypt=true;trustServerCertificate=true";
         try {
             System.out.print("Connecting to the server......");
-            try (Connection connection = DriverManager.getConnection(connectionURL)) {
+            try (Connection ignored = DriverManager.getConnection(connectionURL)) {
                 System.out.println("Connected to the Server.");
                 TeamRepositoryJDBC teamRepositoryJDBC= TeamRepositoryJDBC.getInstance();
                 SponsorRepositoryJDBC sponsorRepositoryJDBC= SponsorRepositoryJDBC.getInstance();

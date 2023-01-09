@@ -197,8 +197,8 @@ public class PlayerController {
         char[] chars= sample.toCharArray();
         for (char c: chars)
             if(Character.isDigit(c))
-                return false;
-        return true;
+                return true;
+        return false;
     }
 
 

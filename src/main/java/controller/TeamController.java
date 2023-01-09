@@ -22,7 +22,7 @@ public class TeamController {
     public void printAllTeams() {
         for (Team team : teamRepositoryJDBC.getAllTeams())
             if(!(team.getName().equals("Free")))
-            team.printTeam();
+                team.printTeam();
     }
 
     /**

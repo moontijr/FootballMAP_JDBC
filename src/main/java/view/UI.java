@@ -197,7 +197,7 @@ public class UI {
                     System.out.println("First Name: ");
                     String firstName = this.userInput.nextLine();
                     try {
-                        if (!playerController.checkString(firstName)) {
+                        if (playerController.checkString(firstName)) {
                             throw new NoDigitsInPersonNameException();
                         }
                     } catch (NoDigitsInPersonNameException noDigitsInPersonNameException) {
@@ -209,7 +209,7 @@ public class UI {
                     System.out.println("Last Name: ");
                     String lastName = this.userInput.nextLine();
                     try {
-                        if (!playerController.checkString(lastName)) {
+                        if (playerController.checkString(lastName)) {
                             throw new NoDigitsInPersonNameException();
                         }
                     } catch (NoDigitsInPersonNameException noDigitsInPersonNameException2) {
@@ -227,7 +227,7 @@ public class UI {
                         System.out.println("Nationality: ");
                         String nationality = this.userInput.nextLine();
                         try {
-                            if (!playerController.checkString(nationality)) {
+                            if (playerController.checkString(nationality)) {
                                 throw new NoDigitsInNationalityException();
                             }
                         } catch (NoDigitsInNationalityException noDigitsInNationalityException) {
@@ -239,7 +239,7 @@ public class UI {
                         System.out.println("Position: ");
                         String position = this.userInput.nextLine();
                         try {
-                            if (!playerController.checkString(position)) {
+                            if (playerController.checkString(position)) {
                                 throw new NoDigitsInPositionException();
                             }
                         } catch (NoDigitsInPositionException noDigitsInPositionException) {
@@ -280,7 +280,7 @@ public class UI {
                     System.out.println("First Name: ");
                     String firstName = this.userInput.nextLine();
                     try {
-                        if (!playerController.checkString(firstName)) {
+                        if (playerController.checkString(firstName)) {
                             throw new NoDigitsInPersonNameException();
                         }
                     } catch (NoDigitsInPersonNameException noDigitsInPersonNameException) {
@@ -356,8 +356,12 @@ public class UI {
                     this.subMenuPlayer(player);
                 case 3:
                     for(Team team : teamRepositoryJDBC.getAllTeams())
-                        if(player.getStatus().contains(team.getName()))
+                        if(player.getStatus().contains(team.getName())&&!player.getStatus().contains("Free"))
                             team.printTeam();
+                    if(player.getStatus().contains("Free"))
+                    {
+                        System.out.println("You are currently a free agent, you dont have a team!");
+                    }
                     this.subMenuPlayer(player);
                 case 4:
                     if(playerController.allHigherPlayers(player)==null)
@@ -427,7 +431,7 @@ public class UI {
                     System.out.println("First Name: ");
                     String firstName = this.userInput.nextLine();
                     try {
-                        if (!playerController.checkString(firstName)) {
+                        if (playerController.checkString(firstName)) {
                             throw new NoDigitsInPersonNameException();
                         }
                     } catch (NoDigitsInPersonNameException noDigitsInPersonNameException) {
@@ -438,7 +442,7 @@ public class UI {
                     System.out.println("Last Name: ");
                     String lastName = this.userInput.nextLine();
                     try {
-                        if (!playerController.checkString(lastName)) {
+                        if (playerController.checkString(lastName)) {
                             throw new NoDigitsInPersonNameException();
                         }
                     } catch (NoDigitsInPersonNameException noDigitsInPersonNameException) {
@@ -455,7 +459,7 @@ public class UI {
                         System.out.println("Nationality: ");
                         String nationality = this.userInput.nextLine();
                         try {
-                            if (!playerController.checkString(nationality)) {
+                            if (playerController.checkString(nationality)) {
                                 throw new NoDigitsInNationalityException();
                             }
                         } catch (NoDigitsInNationalityException noDigitsInNationalityException) {
@@ -467,7 +471,7 @@ public class UI {
                         System.out.println("Playstyle: ");
                         String playstyle = this.userInput.nextLine();
                         try {
-                            if (!playerController.checkString(playstyle))
+                            if (playerController.checkString(playstyle))
                                 throw new NoDigitsInPlaystyleException();
                         } catch (NoDigitsInPlaystyleException noDigitsInPlaystyleException) {
                             System.out.println(noDigitsInPlaystyleException.getMessage());
@@ -515,7 +519,7 @@ public class UI {
                     System.out.println("First Name: ");
                     String firstName = this.userInput.nextLine();
                     try {
-                        if (!playerController.checkString(firstName)) {
+                        if (playerController.checkString(firstName)) {
                             throw new NoDigitsInPersonNameException();
                         }
                     } catch (NoDigitsInPersonNameException noDigitsInPersonNameException) {
@@ -699,8 +703,10 @@ public class UI {
                         String hisCurrentTeam = this.userInput.nextLine();
                         int ok = 0;
                         for (Team team : teamRepositoryJDBC.getAllTeams())
-                            if (team.getAbbreviation().equals(hisCurrentTeam))
+                            if (team.getAbbreviation().equals(hisCurrentTeam)) {
                                 ok = 1;
+                                break;
+                            }
                         if (ok == 1) {
                             for (Player player : playerRepositoryJDBC.getAllPlayers())
                                 if (player.getFirstName().contains(firstName) && player.getLastName().contains(lastName))
@@ -1537,7 +1543,7 @@ public class UI {
                     System.out.println("First Name: ");
                     String firstName = this.userInput.nextLine();
                     try {
-                        if (!playerController.checkString(firstName)) {
+                        if (playerController.checkString(firstName)) {
                             throw new NoDigitsInPersonNameException();
                         }
                     } catch (NoDigitsInPersonNameException noDigitsInPersonNameException) {
@@ -1549,7 +1555,7 @@ public class UI {
                     System.out.println("Last Name: ");
                     String lastName = this.userInput.nextLine();
                     try {
-                        if (!playerController.checkString(lastName)) {
+                        if (playerController.checkString(lastName)) {
                             throw new NoDigitsInPersonNameException();
                         }
                     } catch (NoDigitsInPersonNameException noDigitsInPersonNameException2) {
@@ -1567,7 +1573,7 @@ public class UI {
                         System.out.println("Nationality: ");
                         String nationality = this.userInput.nextLine();
                         try {
-                            if (!playerController.checkString(nationality)) {
+                            if (playerController.checkString(nationality)) {
                                 throw new NoDigitsInNationalityException();
                             }
                         } catch (NoDigitsInNationalityException noDigitsInNationalityException) {
@@ -1579,7 +1585,7 @@ public class UI {
                         System.out.println("Position: ");
                         String position = this.userInput.nextLine();
                         try {
-                            if (!playerController.checkString(position)) {
+                            if (playerController.checkString(position)) {
                                 throw new NoDigitsInPositionException();
                             }
                         } catch (NoDigitsInPositionException noDigitsInPositionException) {
@@ -1643,7 +1649,7 @@ public class UI {
                         System.out.println("First Name:");
                         String newFirstName = this.userInput.nextLine();
                         try {
-                            if (!playerController.checkString(newFirstName)) {
+                            if (playerController.checkString(newFirstName)) {
                                 throw new NoDigitsInPersonNameException();
                             }
                         } catch (NoDigitsInPersonNameException noDigitsInPersonNameException) {
@@ -1654,7 +1660,7 @@ public class UI {
                         System.out.println("Last Name:");
                         String newLastName = this.userInput.nextLine();
                         try {
-                            if (!playerController.checkString(newLastName)) {
+                            if (playerController.checkString(newLastName)) {
                                 throw new NoDigitsInPersonNameException();
                             }
                         } catch (NoDigitsInPersonNameException noDigitsInPersonNameException2) {
@@ -1671,7 +1677,7 @@ public class UI {
                             System.out.println("Nationality: ");
                             String newNationality = this.userInput.nextLine();
                             try {
-                                if (!playerController.checkString(newNationality)) {
+                                if (playerController.checkString(newNationality)) {
                                     throw new NoDigitsInNationalityException();
                                 }
                             } catch (NoDigitsInNationalityException noDigitsInNationalityException) {
@@ -1683,7 +1689,7 @@ public class UI {
                             System.out.println("Position: ");
                             String newPosition = this.userInput.nextLine();
                             try {
-                                if (!playerController.checkString(newPosition)) {
+                                if (playerController.checkString(newPosition)) {
                                     throw new NoDigitsInPositionException();
                                 }
                             } catch (NoDigitsInPositionException noDigitsInPositionException) {
@@ -1784,7 +1790,7 @@ public class UI {
                     System.out.println("First Name: ");
                     String firstName = this.userInput.nextLine();
                     try {
-                        if (!playerController.checkString(firstName)) {
+                        if (playerController.checkString(firstName)) {
                             throw new NoDigitsInPersonNameException();
                         }
                     } catch (NoDigitsInPersonNameException noDigitsInPersonNameException) {
@@ -1795,7 +1801,7 @@ public class UI {
                     System.out.println("Last Name: ");
                     String lastName = this.userInput.nextLine();
                     try {
-                        if (!playerController.checkString(lastName)) {
+                        if (playerController.checkString(lastName)) {
                             throw new NoDigitsInPersonNameException();
                         }
                     } catch (NoDigitsInPersonNameException noDigitsInPersonNameException) {
@@ -1812,7 +1818,7 @@ public class UI {
                         System.out.println("Nationality: ");
                         String nationality = this.userInput.nextLine();
                         try {
-                            if (!playerController.checkString(nationality)) {
+                            if (playerController.checkString(nationality)) {
                                 throw new NoDigitsInNationalityException();
                             }
                         } catch (NoDigitsInNationalityException noDigitsInNationalityException) {
@@ -1824,7 +1830,7 @@ public class UI {
                         System.out.println("Playstyle: ");
                         String playstyle = this.userInput.nextLine();
                         try {
-                            if (!playerController.checkString(playstyle))
+                            if (playerController.checkString(playstyle))
                                 throw new NoDigitsInPlaystyleException();
                         } catch (NoDigitsInPlaystyleException noDigitsInPlaystyleException) {
                             System.out.println(noDigitsInPlaystyleException.getMessage());
@@ -1891,7 +1897,7 @@ public class UI {
                         System.out.println("First Name: ");
                         String newFirstName = this.userInput.nextLine();
                         try {
-                            if (!playerController.checkString(newFirstName)) {
+                            if (playerController.checkString(newFirstName)) {
                                 throw new NoDigitsInPersonNameException();
                             }
                         } catch (NoDigitsInPersonNameException noDigitsInPersonNameException) {
@@ -1902,7 +1908,7 @@ public class UI {
                         System.out.println("Last Name: ");
                         String newLastName = this.userInput.nextLine();
                         try {
-                            if (!playerController.checkString(newLastName)) {
+                            if (playerController.checkString(newLastName)) {
                                 throw new NoDigitsInPersonNameException();
                             }
                         } catch (NoDigitsInPersonNameException noDigitsInPersonNameException) {
@@ -1919,7 +1925,7 @@ public class UI {
                             System.out.println("Nationality: ");
                             String newNationality = this.userInput.nextLine();
                             try {
-                                if (!playerController.checkString(newNationality)) {
+                                if (playerController.checkString(newNationality)) {
                                     throw new NoDigitsInNationalityException();
                                 }
                             } catch (NoDigitsInNationalityException noDigitsInNationalityException) {
@@ -1931,7 +1937,7 @@ public class UI {
                             System.out.println("Playstyle: ");
                             String newPlaystyle = this.userInput.nextLine();
                             try {
-                                if (!playerController.checkString(newPlaystyle))
+                                if (playerController.checkString(newPlaystyle))
                                     throw new NoDigitsInPlaystyleException();
                             } catch (NoDigitsInPlaystyleException noDigitsInPlaystyleException) {
                                 System.out.println(noDigitsInPlaystyleException.getMessage());
@@ -2034,7 +2040,7 @@ public class UI {
                     System.out.println("Country: ");
                     String country = this.userInput.nextLine();
                     try {
-                        if (!playerController.checkString(country))
+                        if (playerController.checkString(country))
                             throw new NoDigitsInNationalityException();
                     } catch (NoDigitsInNationalityException noDigitsInNationalityException) {
                         System.out.println(noDigitsInNationalityException.getMessage());
@@ -2044,7 +2050,7 @@ public class UI {
                     System.out.println("Town: ");
                     String town = this.userInput.nextLine();
                     try {
-                        if (!playerController.checkString(town))
+                        if (playerController.checkString(town))
                             throw new NoDigitsInCityException();
                     } catch (NoDigitsInCityException noDigitsInCityException) {
                         System.out.println(noDigitsInCityException.getMessage());
@@ -2123,7 +2129,7 @@ public class UI {
                         System.out.println("Country: ");
                         String country = this.userInput.nextLine();
                         try {
-                            if (!playerController.checkString(country))
+                            if (playerController.checkString(country))
                                 throw new NoDigitsInNationalityException();
                         } catch (NoDigitsInNationalityException noDigitsInNationalityException) {
                             System.out.println(noDigitsInNationalityException.getMessage());
@@ -2134,7 +2140,7 @@ public class UI {
                         System.out.println("Town: ");
                         String town = this.userInput.nextLine();
                         try {
-                            if (!playerController.checkString(town))
+                            if (playerController.checkString(town))
                                 throw new NoDigitsInCityException();
                         } catch (NoDigitsInCityException noDigitsInCityException) {
                             System.out.println(noDigitsInCityException.getMessage());

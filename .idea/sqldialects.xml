@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/src/main/java/controller/SponsorController.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/model/Team.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/org/example/Main.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/repository/jdbc/CoachRepositoryJDBC.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/repository/jdbc/PlayerRepositoryJDBC.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/repository/jdbc/SponsorRepositoryJDBC.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/repository/jdbc/TeamRepositoryJDBC.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/view/UI.java" dialect="GenericSQL" />
   </component>
 </project>
