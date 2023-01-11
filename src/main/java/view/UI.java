@@ -753,12 +753,16 @@ public class UI {
                     for (Player player : playerRepositoryJDBC.getAllPlayers())
                         if (player.getFirstName().contains(firstName2) && player.getLastName().contains(lastName2))
                             player2 = player;
-                    assert player2 != null;
-                    if(player2.getStatus().contains("Free"))
-                        coach.getTeam().addPlayerToTeam(player2);
+                    if(player2!=null) {
+                        if (player2.getStatus().contains("Free"))
+                            coach.getTeam().addPlayerToTeam(player2);
+                        else
+                            System.out.println("He already plays for a team, he is not a free agent");
+                    }
                     else
-                        System.out.println("He already plays for a team, he is not a free agent");
-
+                    {
+                        System.out.println("There is no such player");
+                    }
                     this.subMenuCoach(coach);
 
 
@@ -774,21 +778,26 @@ public class UI {
                         if (player.getFirstName().contains(firstName3) && player.getLastName().contains(lastName3)) {
                             player3 = player;
                         }
-                    assert player3 != null;
-                    if (player3.getStatus().contains(coach.getTeam().getName())) {
-                        coach.getTeam().removePlayerFromTeam(player3);
-                        player3.setStatus("Free Agent");
-                        Connection connection1= DriverManager.getConnection("jdbc:sqlserver://localhost:52448;databaseName=MAP;user=user1;password=1234;encrypt=true;trustServerCertificate=true");
-                        String sql= "UPDATE PlayerMAP SET status=? WHERE id=? AND firstName=?";
-                        PreparedStatement preparedStatement=connection1.prepareStatement(sql);
-                        preparedStatement.setString(1,"Free Agent");
-                        preparedStatement.setObject(2,player3.getId());
-                        preparedStatement.setObject(3,player3.getFirstName());
-                        preparedStatement.execute();
-                        connection1.close();
-                        System.out.println("Player Removed");
-                    } else {
-                        System.out.println("Player wasn't in the squad");
+                    if(player3!=null) {
+                        if (player3.getStatus().contains(coach.getTeam().getName())) {
+                            coach.getTeam().removePlayerFromTeam(player3);
+                            player3.setStatus("Free Agent");
+                            Connection connection1 = DriverManager.getConnection("jdbc:sqlserver://localhost:52448;databaseName=MAP;user=user1;password=1234;encrypt=true;trustServerCertificate=true");
+                            String sql = "UPDATE PlayerMAP SET status=? WHERE id=? AND firstName=?";
+                            PreparedStatement preparedStatement = connection1.prepareStatement(sql);
+                            preparedStatement.setString(1, "Free Agent");
+                            preparedStatement.setObject(2, player3.getId());
+                            preparedStatement.setObject(3, player3.getFirstName());
+                            preparedStatement.execute();
+                            connection1.close();
+                            System.out.println("Player Removed");
+                        } else {
+                            System.out.println("Player wasn't in the squad");
+                        }
+                    }
+                    else
+                    {
+                        System.out.println("There is no such player");
                     }
                     this.subMenuCoach(coach);
                     break;
@@ -919,18 +928,38 @@ public class UI {
                     this.subMenuSponsor(sponsor);
                     break;
                 case 2:
+                    int ok=0;
                     System.out.println("Please type the abbreviation from the team you wish to sponsor");
                     this.userInput.nextLine();
                     String inputString = userInput.nextLine();
+                    for(Team team : teamRepositoryJDBC.getAllTeams())
+                        if (inputString.equals(team.getAbbreviation())) {
+                            ok = 1;
+                            break;
+                        }
+                    if(ok==0) {
+                        System.out.println("No such team in our database, I am sorry");
+                        this.subMenuSponsor(sponsor);
+                    }
                     System.out.println("How much money to sponsor with?:");
                     int ammountOfMoney = this.userInput.nextInt();
                     sponsorController.startSponsoring(sponsor, inputString, ammountOfMoney);
                     this.subMenuSponsor(sponsor);
                     break;
                 case 3:
+                    int ok1=0;
                     System.out.println("Please type the abbreviation from the team you wish to stop sponsoring");
                     this.userInput.nextLine();
                     String inputString1 = userInput.nextLine();
+                    for(Team team : teamRepositoryJDBC.getAllTeams())
+                        if (inputString1.equals(team.getAbbreviation())) {
+                            ok1 = 1;
+                            break;
+                        }
+                    if(ok1==0){
+                        System.out.println("No such team in our database, I am sorry");
+                        this.subMenuSponsor(sponsor);
+                    }
                     sponsorController.endSponsoring(sponsor, inputString1);
                     this.subMenuSponsor(sponsor);
 
@@ -1198,7 +1227,8 @@ public class UI {
                     break;
                 case 4:
                     for (Coach coach : coachRepositoryJDBC.getAllCoaches()) {
-                        System.out.println(coach.getFirstName() + " " + coach.getLastName() + " training the Team " + coach.getTeam().getName());
+                        if(!coach.getTeam().getName().equals("Free"))
+                            System.out.println(coach.getFirstName() + " " + coach.getLastName() + " training the Team " + coach.getTeam().getName());
                     }
                     this.coachDBMenu();
                     break;
